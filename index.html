@@ -5,27 +5,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
-    <link rel="stylesheet" href='./assets/css/style.css'>
+    <link rel="stylesheet" href='assets/css/styles.css'>
+    <script src="assets/js/script.js"></script>
 </head>
 
 <body>
+    <header>
+        <!-- display high score top left, and timer top right -->
+        <section id="score-keep">
+            <input type="button" value="View High Scores">
+            <h1 id="score"></h1>
+        </section>
 
+        <section id="countdownTimer">
+            <h2 id="timer"></h2>
+        </section>
+    </header>
 
+    <!-- container with rules and start button -->
+    <section id="homeContainer" class="home">
+        <h3>Let's Take a Code Quiz!</h3>
+        <p>Answer all of the code-related questions in under 75 seconds</p>
+        <p>Every wrong answer will deduct 5 seconds from the timer</p>
+        <p>The quiz is over if time runs out or all questions are answered</p>
+        <br>
+        <button id="startBtn">Start Quiz</button>
+    </section>
 
+    <!-- container for questions and answers -->
+    <section id="quizContainer" class="quiz">
+        <h4 id="question"></h4>
+        <!-- answer choices -->
+        <ul id="choices">
+            <li>
+                <button id="answerA"></button>
+            </li>
+            <li>
+                <button id="answerB"></button>
+            </li>
+            <li>
+                <button id="answerC"></button>
+            </li>
+            <li>
+                <button id="answerD"></button>
+            </li>
+        </ul>
+    </section>
 
+    <!-- score & high score name entry -->
+    <section id="answer"></section>
 
+    <!-- dont display until over -->
+    <section id="quizOver">
+        <h4> Quiz Over </h4>
+        <h5 id="yourScore"></h5>
+        <h6 id="initials"></h6>
+    </section>
 
+    <!-- dont display until highScore called -->
+    <section=id="highScore">
+        <h4> High Score </h4>
+        <h5 id="highScore">
+            <!-- have onClick clear, go back-->
+        </h5>
+    </section>
 
-    
 </body>
-
-
-
-
-
-
-
-
-
 
 </html>
