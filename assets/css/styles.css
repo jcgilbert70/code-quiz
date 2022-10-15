@@ -16,3 +16,13 @@
   #choices {
     list-style-type: none;
   }
+
+  #answerA,
+  #answerB,
+  #answerC,
+  #answerD {
+    border: 3px;
+    border-style: solid;
+    padding: 3px;
+    margin: 5px;
+  }
