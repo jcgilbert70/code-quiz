@@ -13,9 +13,15 @@
     text-align: center;
   }
 
-  #choices {
+ #quizQuestion{
     list-style-type: none;
   }
+
+#quizOver,
+#highScore,
+#quizContainer {
+    display: none;
+}
 
   #answerA,
   #answerB,

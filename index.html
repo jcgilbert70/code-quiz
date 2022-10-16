@@ -18,25 +18,25 @@
         </section>
 
         <section id="countdownTimer">
-            <h2 id="timer"></h2>
+            <h2 id="remainingTime"></h2>
         </section>
     </header>
 
     <!-- container with rules and start button -->
-    <section id="homeContainer" class="home">
+    <section id="quizIntro">
         <h3>Let's Take a Code Quiz!</h3>
         <p>Answer all of the code-related questions in under 75 seconds</p>
-        <p>Every wrong answer will deduct 5 seconds from the timer</p>
+        <p>Every wrong answer will deduct 10 seconds from the timer</p>
         <p>The quiz is over if time runs out or all questions are answered</p>
         <br>
         <button id="startBtn">Start Quiz</button>
     </section>
 
     <!-- container for questions and answers -->
-    <section id="quizContainer" class="quiz">
-        <h4 id="question"></h4>
+    <section id="quizContainer">
+        <h4 id="quizHeader"></h4>
         <!-- answer choices -->
-        <ul id="choices">
+        <ul>
             <li>
                 <button id="answerA"></button>
             </li>
@@ -64,10 +64,10 @@
     <!-- dont display until highScore called -->
     <section id="highScore">
         <h4> High Score </h4>
-        <h5 id="highScore">
+        <h5 id="userScore">
             <!-- have onClick clear, go back-->
         </h5>
-        </section>
+    </section>
 
 </body>
 
