@@ -9,6 +9,23 @@
     justify-content: space-between;
   }
 
+ #startBtn {
+    background-color: #6b5e80;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 100%;
+    margin: 5px;
+    padding: 2px 10px;
+    transition: background-color 0.1s;
+  }
+
+ #startBtn:hover {
+    background-color: #978ea3;
+  }
+
   body {
     text-align: center;
   }

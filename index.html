@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
     <link rel="stylesheet" href='assets/css/styles.css'>
-    <script src="assets/js/script.js"></script>
+
 </head>
 
 <body>
@@ -18,7 +18,7 @@
         </section>
 
         <section id="countdownTimer">
-            <h2 id="remainingTime"></h2>
+            <h2 id="remainingTime"> 75 Seconds </h2>
         </section>
     </header>
 
@@ -34,9 +34,10 @@
 
     <!-- container for questions and answers -->
     <section id="quizContainer">
+        <h3 id="quizNum"></h3>
         <h4 id="quizHeader"></h4>
         <!-- answer choices -->
-        <ul>
+        <ul id="quizChoices">
             <li>
                 <button id="answerA"></button>
             </li>
@@ -52,12 +53,13 @@
         </ul>
     </section>
 
-    <section id="answer"></section>
+    <!-- quick response letting user know if choice was correct or wrong -->
+    <section id="feedback"></section> 
 
     <!-- dont display until over -->
     <section id="quizOver">
         <h4> Quiz Over </h4>
-        <h5 id="yourScore"></h5>
+        <h5 id="remainingTimeEnd"></h5>
         <h6 id="initials"></h6>
     </section>
 
@@ -70,5 +72,8 @@
     </section>
 
 </body>
+
+<script src="assets/js/script.js"></script>
+<script src="assets/js/questions.js"></script>
 
 </html>

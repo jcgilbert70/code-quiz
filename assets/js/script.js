@@ -15,55 +15,35 @@
     C) high score list can be refreshed
 
 */
-var quiz = [
-    {
-        questionNum: "1",
-        answers: ["answer1", "answer 2", "answer 3", "answer 4"],
-        correctAnswer: 3
-    },
-    {
-        questionNum: "2",
-        answers: ["answer1", "answer 2", "answer 3", "answer 4"],
-        correctAnswer: 0
-    },
-    {
-        questionNum: "3",
-        answers: ["answer1", "answer 2", "answer 3", "answer 4"],
-        correctAnswer: 3
-    },
-    {
-        questionNum: "4",
-        answers: ["answer1", "answer 2", "answer 3", "answer 4"],
-        correctAnswer: 1
-    },
-    {
-        questionNum: "5",
-        answers: ["answer1", "answer 2", "answer 3", "answer 4"],
-        correctAnswer: 2
-    },
-]
 
 var score = 0;
 var timeRemaining = 75;
 var currentQuestion = 0;
 
-var checkBtnA = document.querySelector("answerA");
-var checkBtnB = document.querySelector("answerB");
-var checkBtnC = document.querySelector("answerC");
-var checkBtnD = document.querySelector("answerD");
+var checkBtnA = document.querySelector("#answerA");
+var checkBtnB = document.querySelector("#answerB");
+var checkBtnC = document.querySelector("#answerC");
+var checkBtnD = document.querySelector("#answerD");
 
+var choicesEl = document.querySelector("#choices");
+var feedbackEl = document.querySelector("#feedback");
+var quizChoicesEl = document.querySelector("#quizChoices")
 var quizIntro = document.querySelector("#quizIntro");
-var quizHeader = document.querySelector("#quizHeader");
-var quizOver = document.querySelector("quizOver");
-var remainingTimeEnd = document.querySelector("#remainingTime");
-var startBtn = document.querySelector("startBtn");
+var quizHeaderEl = document.querySelector("#quizHeader");
+var quizNumE1 = document.querySelector("#quizNum")
+var quizOver = document.querySelector("#quizOver");
+var remainingTime = document.querySelector("#remainingTime");
+var remainingTimeEnd = document.querySelector("#remainingTimeEnd");
+var startBtn = document.querySelector("#startBtn");
 
 // countdown timer
 function countdown() {
-    var timerCountdown = setInterval(function (){
+    console.log("countdown function started");
+    var timerCountdown = setInterval(function () {
         timeRemaining--;
-        displayTime.textContent = timeRemaining;
+        remainingTime.textContent = timeRemaining + (" Seconds Left");
         if (timeRemaining === 0) {
+            console.log("user ran out of time")
             clearInterval(timerCountdown);
             endQuiz; // ends quiz if time runs out
         }
@@ -74,28 +54,38 @@ function countdown() {
     }, 1000);
 }
 
-// start quiz
+// start quiz makes intro screen dissapear, and makes questions appear
 function startQuiz() {
+    console.log("start quiz function started");
+    countdown() //countdown function/timer starts
     quizIntro.setAttribute("style", "display:none")
-    quizContainer.setAttribute("style", "display:flex")
-    console.log("Intro was replaced with quiz questions")
+    quizContainer.setAttribute("style", "display:inline-block")
+    // quizContainer.setAttribute("style", "object-position:center")
+    console.log("Intro was replaced with quiz questions");
+    runQuiz() // display adjusted to show questions and quiz begins
 }
 
-// display question and remove quiz intro
+// display question
 function displayQuestion() {
-    questionNumberEl.textContent = questions[currentQuestion].questionNum;
-    questionItselfEl.textContent = questions[currentQuestion].questionContent;
-    for (i = 0; i < 4; i++) {
-        answerChoiceArray[i].textContent = questions[currentQuestion].answerChoices[i];
+    console.log("display question function started");
+
+    quizNumE1.textContent = ("Question Number: ") + quizQuestions[currentQuestion].questionNum;
+    quizHeaderEl.textContent = quizQuestions[currentQuestion].questionAsk;
+    quizChoicesEl.textContent - quizQuestions[currentQuestion].answers;
+
+
+    for (var i = 0; i < quizQuestions.length; i++) {
+        quizQuestions[i].textContent = quizQuestions[currentQuestion].answers[i];
     }
 }
 
 // run quiz loop per # of questions
 function runQuiz() {
-    if (currentQuestion < questions.length) {
+    console.log("run quiz function started");
+    if (currentQuestion < quizQuestions.length) {
         displayQuestion();
     }
-    console.log("showing question: " + currentQuestion)
+    console.log("showing question: " + currentQuestion);
 
     // when button is clicked, check answer function will run
     checkBtnA.addEventListener("click", checkAnswer);
@@ -109,36 +99,54 @@ function checkAnswer() {
     var buttonSelected = this.id;
     console.log("user selected: " + buttonSelected);
 
-    if (buttonSelected === correctAnswer) {
-        console.log("User answer is Correct");
-    } else if (buttonSelected != correctAnswer) {
-        console.log("user answer is Incorrect");
+    if (buttonSelected != correctAnswer) {
+        feedbackEl.textContent = "Incorrect";
+        console.log("User answer is Incorrect. feedback pop-up of incorrect");
+
+        // this deducts 10s if user guesses wrong answer
         if (timeRemaining > 0) {
-            if (timeRemaining - 10 <= 0) {
+            if (timeRemaining - 10 <= 0) { // if 10s or less go to 0s
             }
             else {
-                timeRemaining -= 10;
+                timeRemaining -= 10; // else subtract 10 from time remaining
             }
         }
+
+    } else if (buttonSelected === correctAnswer) {
+        feedbackEl.textContent = "Correct";
+        console.log("user answer is Correct, feedback pop-up of correct");
     }
-    currentQuestion++
+
+    feedbackEl.setAttribute("class", "feedback");
+    serInterval(function () {
+        feedbackEl.setAttribute("class", "feedback hide");
+    }, 500);
+
+
+    currentQuestion++; // after previous answer checked, go to next question
+
+    console.log("checking if there is another question")
     if (currentQuestion > (questions.length - 1)) {
-        endQuiz();
+        console.log("there are no more questions in quiz array")
+        endQuiz(); // ends quiz when quiz goes through full question array
+
     } else if (currentQuestion <= (questions.length - 1)) {
-        runQuiz();
+        console.log("quiz has checked an answer and moved to next question")
+        runQuiz(); // run quiz loop for next question
+
     }
 }
-
 
 function endQuiz() {
-quizContainer.setAAttribute("style", "display:none")
-quizOver.setAttribute("style", "display:flex")
-remainingTimeEnd.textContent = timeRemaining;
-// submitButton.addEventListener("click", submitHighScores);
+    console.log("The quiz ended");
+    quizContainer.setAttribute("style", "display:none"); // makes section where questions were dissapear
+    quizOver.setAttribute("style", "display:flex"); // section where questions were are replaced by "quizOver" 
+    remainingTimeEnd.textContent = timeRemaining;
+    // submitButton.addEventListener("click", submitHighScores);
 }
 
-// running functions on click of "Start Quiz"
-document.querySelector("#startBtn").addEventListener("click", countdown, startQuiz, runQuiz);
+// running function on click of "Start Quiz"
+startBtn.addEventListener("click", startQuiz);
 
 
 
@@ -162,17 +170,3 @@ function clearHighScores() {
 }
 
 */
-
-
-
-
-
-//-----------------------------------------------
-
-// function to start timer & display question onClick of start button
-
-// function when question is called, radom select from array
-
-// function if question answered wrong subtract 5 seconds from timer
-
-// function when all questions answered, stop timer & end game
