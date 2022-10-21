@@ -107,52 +107,39 @@ function displayQuestion() {
 }
 
 // check answer function
-function checkAnswer() {
-    var buttonSelected = this.id;
-    console.log("user selected: " + buttonSelected);
-
-    if (buttonSelected != correctAnswer) {
+function checkAnswer(userAnswer) {
+    if (userAnswer.textContent != quizQuestions[currentQuestionIndex].correctAnswer) {
+        timeRemaining -= 10;
         feedbackEl.textContent = "Incorrect";
-        console.log("User answer is Incorrect. feedback pop-up of incorrect");
-
-        // this deducts 10s if user guesses wrong answer
-        if (timeRemaining > 0) {
-            if (timeRemaining - 10 <= 0) { // if 10s or less go to 0s
-            }
-            else {
-                timeRemaining -= 10; // else subtract 10 from time remaining
-            }
-        }
-
-    } else if (buttonSelected === correctAnswer) {
+        console.log("Answer was incorrect, 10 seconds were deducted from timer");
+    }
+    else {
         feedbackEl.textContent = "Correct";
-        console.log("user answer is Correct, feedback pop-up of correct");
+        console.log("Answer was correct")
     }
 
     feedbackEl.setAttribute("class", "feedback");
-    serInterval(function () {
+    setInterval(function () {
         feedbackEl.setAttribute("class", "feedback hide");
-    }, 500);
+    }, 700);
 
 
-    currentQuestion++; // after previous answer checked, go to next question
+    currentQuestionIndex++; // after previous answer checked, go to next question
 
     console.log("checking if there is another question")
-    if (currentQuestion > (questions.length - 1)) {
+    if (currentQuestionIndex >= (quizQuestions.length)) {
         console.log("there are no more questions in quiz array")
         endQuiz(); // ends quiz when quiz goes through full question array
 
-    } else if (currentQuestion <= (questions.length - 1)) {
-        console.log("quiz has checked an answer and moved to next question")
-        runQuiz(); // run quiz loop for next question
-
-    }
+    } else
+        displayQuestion();
 }
+
 
 function endQuiz() {
     console.log("The quiz ended");
-    quizContainer.setAttribute("style", "display:none"); // makes section where questions were dissapear
-    quizOver.setAttribute("style", "display:flex"); // section where questions were are replaced by "quizOver" 
+    quizContainerEl.setAttribute("class", "hide"); // makes section where questions were dissapear
+    quizOverEl.setAttribute("class", " "); // section where questions were are replaced by "quizOver" 
     remainingTimeEnd.textContent = timeRemaining;
     // submitButton.addEventListener("click", submitHighScores);
 }
