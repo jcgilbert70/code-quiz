@@ -22,6 +22,7 @@ var quizQuestions = [
         questionAsk: "HTML is an acronym of:",
         questionAnswers: ["HyperText Markup Language", "HyperText Machine Language", "HyperToken Markup Language", "HyperToken Machine Language"],
         correctAnswer: "HyperText Markup Language"
+    },
     {
         questionNum: "5",
         questionAsk: "CSS is an acronym of",
