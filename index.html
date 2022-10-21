@@ -9,12 +9,12 @@
 
 </head>
 
-<body>
+<body class="wrapper">
     <header>
         <!-- display high score top left, and timer top right -->
         <section class="scores"><a href="highscores.html">View Highscores</a></section>
         
-        <section class="timer">Time: <span id="timeRemaining">0</span></section>
+        <section class="timer">Time: <span id="remainingTime">0</span></section>
     </header>
 
     <!-- container with rules and start button -->
@@ -24,27 +24,26 @@
         <p>Every wrong answer will deduct 10 seconds from the timer</p>
         <p>The quiz is over if time runs out or all questions are answered</p>
         <br>
-        <button id="startBtn">Start Quiz</button>
+        <button id="startBtn" class="choices">Start Quiz</button>
     </section>
 
     <!-- container for questions and answers -->
     <section id="quizContainer" class="hide">
-        <h3 id="quizNum"></h3>
-        <h4 id="quizHeader"></h4>
-        <!-- answer choices -->
-        <ul id="quizChoices" class="choices">
-            </ul>
+        <h3 id="quizNum"></h3> <!-- element for question number to display-->
+        <h4 id="quizHeader"></h4> <!-- element for question to be displayed -->
+        <ul id="quizChoices"></ul> <!-- element for question answers to display-->
         </section>
 
 
     <!-- quick response letting user know if choice was correct or wrong -->
-    <section id="feedback"></section> 
+    <section id="feedback" class="hide"></section> 
 
     <!-- dont display until over -->
     <section id="quizOver" class="hide">
         <h4> Quiz Over </h4>
         <h5 id="remainingTimeEnd"></h5>
-        <h6 id="initials"></h6>
+        <h6>Enter initials: <input type="text" id="initials" max = "3"></h6>
+        <button id="submit">Submit</button>
     </section>
 
     <!-- dont display until highScore called -->
@@ -57,7 +56,8 @@
 
 </body>
 
-<script src="assets/js/script.js"></script>
 <script src="assets/js/questions.js"></script>
+<script src="assets/js/script.js"></script>
+
 
 </html>

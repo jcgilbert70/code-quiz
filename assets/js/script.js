@@ -17,32 +17,36 @@
 */
 
 var score = 0;
-var timeRemaining = 75;
+var timeCount = quizQuestions.length * 15;
 var currentQuestionIndex = 0;
 
 //  variables to reference the DOM
 var remainingTimeEl = document.getElementById("remainingTime");
-
 var quizIntroEl = document.getElementById("quizIntro");
 var startBtnEl = document.getElementById("startBtn");
-
 var quizContainerEl = document.getElementById("quizContainer");
 var quizNumE1 = document.getElementById("quizNum");
 var quizHeaderEl = document.getElementById("quizHeader");
 var quizChoicesEl = document.getElementById("quizChoices");
-
 var feedbackEl = document.getElementById("feedback");
-
 var quizOverEl = document.getElementById("quizOver");
 var remainingTimeEnd = document.getElementById("remainingTimeEnd");
 var initialsEl = document.getElementById("initials");
+var submitBtn = document.getElementById("submit");
 
 
-// start quiz makes intro screen dissapear, and makes questions appear
+function init() {
+
+}
+
+// start quiz function begins
 function startQuiz() {
     console.log("start quiz function started");
+
+    // hiding the intro screen
     quizIntroEl.setAttribute("class", "start hide");
 
+    // displaying the questions
     quizContainerEl.setAttribute("class", " ");
     console.log("Intro was replaced with quiz questions container");
     countdown(); //countdown function/timer starts
@@ -53,17 +57,15 @@ function startQuiz() {
 function countdown() {
     console.log("countdown function started");
     remainingTimeEl = setInterval(function () {
-        timeRemaining--;
-        console.log("time remaining: " + timeRemaining);
-        remainingTimeEl.textContent = timeRemaining;
-        if (timeRemaining <= 0) {
+        timeCount--;
+        console.log("time remaining: " + timeCount); // displays the countdown within the console log
+        remainingTimeEl.textContent = timeCount;
+        if (timeCount <= 0) {
             console.log("user ran out of time")
             endQuiz();
         }
     }, 1000);
 }
-
-
 
 
 // display question
@@ -77,31 +79,27 @@ function displayQuestion() {
     quizContainerEl.children[1].textContent = currentQuestion.questionAsk
 
 
-
-    //quizChoicesEl.textContent - quizQuestions[currentQuestion].answers;
-
     while (quizChoicesEl.hasChildNodes()) {
         quizChoicesEl.removeChild(quizChoicesEl.lastChild);
     }
     // update question answers with current question
     for (var i = 0; i < currentQuestion.questionAnswers.length; i++) {
-        //quizQuestions[i].textContent = quizQuestions[currentQuestion].questionAnswers[i];
 
         var answerBtn = document.createElement("button");
+        answerBtn.setAttribute("class", "choices");
         answerBtn.textContent = currentQuestion.questionAnswers[i]
-
         quizChoicesEl.appendChild(answerBtn);
     }
-    quizChoicesEl.children[0].addEventListener("click", function (event) {
+    quizChoicesEl.children[0].addEventListener("click", function () {
         checkAnswer(quizChoicesEl.children[0]);
     });
-    quizChoicesEl.children[1].addEventListener("click", function (event) {
+    quizChoicesEl.children[1].addEventListener("click", function () {
         checkAnswer(quizChoicesEl.children[1]);
     });
-    quizChoicesEl.children[2].addEventListener("click", function (event) {
+    quizChoicesEl.children[2].addEventListener("click", function () {
         checkAnswer(quizChoicesEl.children[2]);
     });
-    quizChoicesEl.children[3].addEventListener("click", function (event) {
+    quizChoicesEl.children[3].addEventListener("click", function () {
         checkAnswer(quizChoicesEl.children[3]);
     });
 }
@@ -109,7 +107,7 @@ function displayQuestion() {
 // check answer function
 function checkAnswer(userAnswer) {
     if (userAnswer.textContent != quizQuestions[currentQuestionIndex].correctAnswer) {
-        timeRemaining -= 10;
+        timeCount -= 10;
         feedbackEl.textContent = "Incorrect";
         console.log("Answer was incorrect, 10 seconds were deducted from timer");
     }
@@ -121,7 +119,7 @@ function checkAnswer(userAnswer) {
     feedbackEl.setAttribute("class", "feedback");
     setInterval(function () {
         feedbackEl.setAttribute("class", "feedback hide");
-    }, 700);
+    }, 1000);
 
 
     currentQuestionIndex++; // after previous answer checked, go to next question
@@ -141,33 +139,40 @@ function endQuiz() {
     clearInterval(remainingTimeEl)
     quizContainerEl.setAttribute("class", "hide"); // makes section where questions were dissapear
     quizOverEl.setAttribute("class", " "); // section where questions were are replaced by "quizOver" 
-    remainingTimeEnd.textContent =("Your Score: ") + timeRemaining;
+    remainingTimeEnd.textContent = ("Your Final Score Is: ") + timeCount;
+    console.log("final score is: " + timeCount)
 
-    // submitButton.addEventListener("click", submitHighScores);
-}
-
-// running function on click of "Start Quiz"
-startBtn.addEventListener("click", startQuiz);
-
-
-
-
-
-
-
-
-/* high score functions
-
-function submitHighScores() {
 
 }
 
-function displayHighScores() {
-
+function saveHighscore() {
+  var initials = initialsEl.value.toUpperCase();
+  if(initials === ""){ 
+    alert("Input mustn't be blank'");
+    return;
+  }
+  else if(initials.length > 3){
+    alert("Input must be no more than 3 characters");
+    return;
+  }
+  else{
+    var highscores;
+    if(JSON.parse(localStorage.getItem("highscores")) != null)
+      highscores = JSON.parse(window.localStorage.getItem("highscores"));
+    else
+      highscores = [];
+    var newScore = {
+      initials: initials,
+      score: timeCount
+    };
+    highscores.push(newScore);
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+    location.href = "highscores.html";
+  }
 }
 
-function clearHighScores() {
+submitBtn.onclick = saveHighscore;
 
-}
+startBtn.onclick = startQuiz;
 
-*/
+initialsEl.onkeyup = checkForEnter;
