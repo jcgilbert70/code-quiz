@@ -18,98 +18,92 @@
 
 var score = 0;
 var timeRemaining = 75;
-var currentQuestion = 0;
-
-var checkBtnA = document.querySelector("#answerA");
-var checkBtnB = document.querySelector("#answerB");
-var checkBtnC = document.querySelector("#answerC");
-var checkBtnD = document.querySelector("#answerD");
+var currentQuestionIndex = 0;
 
 //  variables to reference the DOM
-var countdownTimerEl = document.querySelector("#countdownTimer");
-var remainingTimeEl = document.querySelector("#remainingTime");
+var remainingTimeEl = document.getElementById("remainingTime");
 
-var quizIntroEl = document.querySelector("#quizIntro");
-var startBtnEl = document.querySelector("#startBtn");
+var quizIntroEl = document.getElementById("quizIntro");
+var startBtnEl = document.getElementById("startBtn");
 
-var quizContainerEl = document.querySelector("#quizContainer");
-var quizNumE1 = document.querySelector("#quizNum");
-var quizHeaderEl = document.querySelector("#quizHeader");
-var quizChoicesEl = document.querySelector("#quizChoices");
+var quizContainerEl = document.getElementById("quizContainer");
+var quizNumE1 = document.getElementById("quizNum");
+var quizHeaderEl = document.getElementById("quizHeader");
+var quizChoicesEl = document.getElementById("quizChoices");
 
-var feedbackEl = document.querySelector("#feedback");
+var feedbackEl = document.getElementById("feedback");
 
-var quizOverEl = document.querySelector("#quizOver");
-var remainingTimeEnd = document.querySelector("#remainingTimeEnd");
-var initialsEl = document.querySelector("#initials");
+var quizOverEl = document.getElementById("quizOver");
+var remainingTimeEnd = document.getElementById("remainingTimeEnd");
+var initialsEl = document.getElementById("initials");
 
-
-
-
-
-
-
-
-// countdown timer
-function countdown() {
-    console.log("countdown function started");
-    var timerCountdown = setInterval(function () {
-        timeRemaining--;
-        remainingTimeEl.textContent = timeRemaining + (" Seconds Left");
-        if (timeRemaining === 0) {
-            console.log("user ran out of time")
-            resetTimer;
-            endQuiz; // ends quiz if time runs out
-        }
-        if (currentQuestion > (quizQuestion.length - 1)) {
-            resetTimer;
-            endQuiz; // ends quiz if all questions answered
-        }
-    }, 1000);
-}
-
-function resetTimer() {
-    clearInterval(timerCountdown);
-}
 
 // start quiz makes intro screen dissapear, and makes questions appear
 function startQuiz() {
     console.log("start quiz function started");
-    countdown() //countdown function/timer starts
-    quizIntroEl.setAttribute("style", "display:none")
-    quizContainerEl.setAttribute("style", "display:inline-block")
-    // quizContainer.setAttribute("style", "object-position:center")
-    console.log("Intro was replaced with quiz questions");
-    runQuiz() // display adjusted to show questions and quiz begins
+    quizIntroEl.setAttribute("class", "start hide");
+
+    quizContainerEl.setAttribute("class", " ");
+    console.log("Intro was replaced with quiz questions container");
+    countdown(); //countdown function/timer starts
+    displayQuestion(); // displays first question
 }
+
+// countdown timer
+function countdown() {
+    console.log("countdown function started");
+    remainingTimeEl = setInterval(function () {
+        timeRemaining--;
+        console.log("time remaining: " + timeRemaining);
+        remainingTimeEl.textContent = timeRemaining;
+        if (timeRemaining <= 0) {
+            console.log("user ran out of time")
+            endQuiz();
+        }
+    }, 1000);
+}
+
+
+
 
 // display question
 function displayQuestion() {
     console.log("display question function started");
 
-    quizNumE1.textContent = ("Question Number: ") + quizQuestions[currentQuestion].questionNum;
-    quizHeaderEl.textContent = quizQuestions[currentQuestion].questionAsk;
-    quizChoicesEl.textContent - quizQuestions[currentQuestion].answers;
+    var currentQuestion = quizQuestions[currentQuestionIndex];
+
+    // update Question number with current question
+    quizContainerEl.children[0].textContent = ("Question Number: ") + currentQuestion.questionNum
+    quizContainerEl.children[1].textContent = currentQuestion.questionAsk
 
 
-    for (var i = 0; i < quizQuestions.length; i++) {
-        quizQuestions[i].textContent = quizQuestions[currentQuestion].answers[i];
+
+    //quizChoicesEl.textContent - quizQuestions[currentQuestion].answers;
+
+    while (quizChoicesEl.hasChildNodes()) {
+        quizChoicesEl.removeChild(quizChoicesEl.lastChild);
     }
-}
+    // update question answers with current question
+    for (var i = 0; i < currentQuestion.questionAnswers.length; i++) {
+        //quizQuestions[i].textContent = quizQuestions[currentQuestion].questionAnswers[i];
 
-// run quiz loop per # of questions
-function runQuiz() {
-    console.log("run quiz function started");
-    if (currentQuestion < quizQuestions.length) {
-        displayQuestion();
+        var answerBtn = document.createElement("button");
+        answerBtn.textContent = currentQuestion.questionAnswers[i]
+
+        quizChoicesEl.appendChild(answerBtn);
     }
-    console.log("showing question: " + currentQuestion);
-
-    // when button is clicked, check answer function will run
-    checkBtnA.addEventListener("click", checkAnswer);
-    checkBtnB.addEventListener("click", checkAnswer);
-    checkBtnC.addEventListener("click", checkAnswer);
-    checkBtnD.addEventListener("click", checkAnswer);
+    quizChoicesEl.children[0].addEventListener("click", function (event) {
+        checkAnswer(quizChoicesEl.children[0]);
+    });
+    quizChoicesEl.children[1].addEventListener("click", function (event) {
+        checkAnswer(quizChoicesEl.children[1]);
+    });
+    quizChoicesEl.children[2].addEventListener("click", function (event) {
+        checkAnswer(quizChoicesEl.children[2]);
+    });
+    quizChoicesEl.children[3].addEventListener("click", function (event) {
+        checkAnswer(quizChoicesEl.children[3]);
+    });
 }
 
 // check answer function
