@@ -25,41 +25,59 @@ var checkBtnB = document.querySelector("#answerB");
 var checkBtnC = document.querySelector("#answerC");
 var checkBtnD = document.querySelector("#answerD");
 
-var choicesEl = document.querySelector("#choices");
-var feedbackEl = document.querySelector("#feedback");
-var quizChoicesEl = document.querySelector("#quizChoices")
-var quizIntro = document.querySelector("#quizIntro");
+//  variables to reference the DOM
+var countdownTimerEl = document.querySelector("#countdownTimer");
+var remainingTimeEl = document.querySelector("#remainingTime");
+
+var quizIntroEl = document.querySelector("#quizIntro");
+var startBtnEl = document.querySelector("#startBtn");
+
+var quizContainerEl = document.querySelector("#quizContainer");
+var quizNumE1 = document.querySelector("#quizNum");
 var quizHeaderEl = document.querySelector("#quizHeader");
-var quizNumE1 = document.querySelector("#quizNum")
-var quizOver = document.querySelector("#quizOver");
-var remainingTime = document.querySelector("#remainingTime");
+var quizChoicesEl = document.querySelector("#quizChoices");
+
+var feedbackEl = document.querySelector("#feedback");
+
+var quizOverEl = document.querySelector("#quizOver");
 var remainingTimeEnd = document.querySelector("#remainingTimeEnd");
-var startBtn = document.querySelector("#startBtn");
+var initialsEl = document.querySelector("#initials");
+
+
+
+
+
+
+
 
 // countdown timer
 function countdown() {
     console.log("countdown function started");
     var timerCountdown = setInterval(function () {
         timeRemaining--;
-        remainingTime.textContent = timeRemaining + (" Seconds Left");
+        remainingTimeEl.textContent = timeRemaining + (" Seconds Left");
         if (timeRemaining === 0) {
             console.log("user ran out of time")
-            clearInterval(timerCountdown);
+            resetTimer;
             endQuiz; // ends quiz if time runs out
         }
-        if (currentQuestion > (question.length - 1)) {
-            clearInterval(timerCountdown);
+        if (currentQuestion > (quizQuestion.length - 1)) {
+            resetTimer;
             endQuiz; // ends quiz if all questions answered
         }
     }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(timerCountdown);
 }
 
 // start quiz makes intro screen dissapear, and makes questions appear
 function startQuiz() {
     console.log("start quiz function started");
     countdown() //countdown function/timer starts
-    quizIntro.setAttribute("style", "display:none")
-    quizContainer.setAttribute("style", "display:inline-block")
+    quizIntroEl.setAttribute("style", "display:none")
+    quizContainerEl.setAttribute("style", "display:inline-block")
     // quizContainer.setAttribute("style", "object-position:center")
     console.log("Intro was replaced with quiz questions");
     runQuiz() // display adjusted to show questions and quiz begins
