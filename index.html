@@ -12,7 +12,7 @@
 <body class="wrapper">
     <header>
         <!-- display high score top left, and timer top right -->
-        <section class="scores"><a href="highscores.html">View Highscores</a></section>
+        <section class="scores"><a href="highscores.html" class="choices">View Highscores</a></section>
         
         <section class="timer">Time: <span id="remainingTime">0</span></section>
     </header>
@@ -29,7 +29,7 @@
 
     <!-- container for questions and answers -->
     <section id="quizContainer" class="hide">
-        <h3 id="quizNum"></h3> <!-- element for question number to display-->
+        <h3 id="quizNum" class="questionNumber"></h3> <!-- element for question number to display-->
         <h4 id="quizHeader"></h4> <!-- element for question to be displayed -->
         <ul id="quizChoices"></ul> <!-- element for question answers to display-->
         </section>
@@ -40,18 +40,15 @@
 
     <!-- dont display until over -->
     <section id="quizOver" class="hide">
-        <h4> Quiz Over </h4>
+        <h4 class="end"> Quiz Over </h4>
         <h5 id="remainingTimeEnd"></h5>
         <h6>Enter initials: <input type="text" id="initials" max = "3"></h6>
-        <button id="submit">Submit</button>
+        <button id="submit" class="choices">Submit</button>
     </section>
 
     <!-- dont display until highScore called -->
     <section id="highScore" class="hide">
-        <h4> High Score </h4>
-        <h5 id="userScore">
-            <!-- have onClick clear, go back-->
-        </h5>
+        <h4> id="userScore"></h4>     
     </section>
 
 </body>

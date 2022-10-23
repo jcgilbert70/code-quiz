@@ -146,33 +146,32 @@ function endQuiz() {
 }
 
 function saveHighscore() {
-  var initials = initialsEl.value.toUpperCase();
-  if(initials === ""){ 
-    alert("Input mustn't be blank'");
-    return;
-  }
-  else if(initials.length > 3){
-    alert("Input must be no more than 3 characters");
-    return;
-  }
-  else{
-    var highscores;
-    if(JSON.parse(localStorage.getItem("highscores")) != null)
-      highscores = JSON.parse(window.localStorage.getItem("highscores"));
-    else
-      highscores = [];
-    var newScore = {
-      initials: initials,
-      score: timeCount
-    };
-    highscores.push(newScore);
-    localStorage.setItem("highscores", JSON.stringify(highscores));
-    location.href = "highscores.html";
-  }
+    var initials = initialsEl.value.toUpperCase();
+    if (initials === "") {
+        alert("Can not be blank'");
+        return;
+    }
+    else if (initials.length > 3) {
+        alert("Input must be no more than 3 characters");
+        return;
+    }
+    else {
+        var highscores;
+        if (JSON.parse(localStorage.getItem("highscores")) != null)
+            highscores = JSON.parse(window.localStorage.getItem("highscores"));
+        else
+            highscores = [];
+        var newScore = {
+            initials: initials,
+            score: timeCount
+        };
+        highscores.push(newScore);
+        localStorage.setItem("highscores", JSON.stringify(highscores));
+        location.href = "highscores.html";
+    }
 }
+
 
 submitBtn.onclick = saveHighscore;
 
 startBtn.onclick = startQuiz;
-
-initialsEl.onkeyup = checkForEnter;
