@@ -136,7 +136,8 @@ function checkAnswer(userAnswer) {
 
 function endQuiz() {
     console.log("The quiz ended");
-    clearInterval(remainingTimeEl)
+    clearInterval(timer)
+    remainingTimeEl.setAttribute("class", "hide");
     quizContainerEl.setAttribute("class", "hide"); // makes section where questions were dissapear
     quizOverEl.setAttribute("class", " "); // section where questions were are replaced by "quizOver" 
     remainingTimeEnd.textContent = ("Your Final Score Is: ") + timeCount;
