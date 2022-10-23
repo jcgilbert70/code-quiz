@@ -15,7 +15,7 @@
     C) high score list can be refreshed
 
 */
-
+var timer
 var score = 0;
 var timeCount = quizQuestions.length * 15;
 var currentQuestionIndex = 0;
@@ -56,7 +56,7 @@ function startQuiz() {
 // countdown timer
 function countdown() {
     console.log("countdown function started");
-    remainingTimeEl = setInterval(function () {
+    timer = setInterval(function () {
         timeCount--;
         console.log("time remaining: " + timeCount); // displays the countdown within the console log
         remainingTimeEl.textContent = timeCount;
