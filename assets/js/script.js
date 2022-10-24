@@ -1,20 +1,23 @@
 /* 
-
 1)  A) Game begins by cliking "Start" button
 
 2)  A) A timer starts
-    B) user is presented with a random question
-    C) When 1st question is answered, next question appears
-    D) A wrong answer deducts time from the clock
+    B) user is presented with first question
+    C) user mouse click to select a multiple choice answer
+    D) users selection is verified to be correct or incorrect
+    E) A wrong answer deducts time from the clock
+    F) quiz moves to next question
+    G) user is presented with next question and answers
 
 3)  A) game ends when all questions done
     B) game ends when time runs out
 
-4)  A) user enters initials for score
-    B) score and initals added to high score list
-    C) high score list can be refreshed
-
+4)  A) user is presented with their quiz score
+    B) user enters initials for score of 1 to 3 characters 
+    C) score and initals added to high score list
+    D) high score list can be refreshed, or user can return to main page
 */
+
 var timer
 var score = 0;
 var timeCount = quizQuestions.length * 15;
@@ -35,12 +38,7 @@ var initialsEl = document.getElementById("initials");
 var submitBtn = document.getElementById("submit");
 
 
-function init() {
-
-}
-
-// start quiz function begins
-function startQuiz() {
+function startQuiz() { // start quiz function begins
     console.log("start quiz function started");
 
     // hiding the intro screen
@@ -53,7 +51,7 @@ function startQuiz() {
     displayQuestion(); // displays first question
 }
 
-// countdown timer
+// 2-A) countdown timer begins
 function countdown() {
     console.log("countdown function started");
     timer = setInterval(function () {
@@ -62,13 +60,12 @@ function countdown() {
         remainingTimeEl.textContent = timeCount;
         if (timeCount <= 0) {
             console.log("user ran out of time")
-            endQuiz();
+            endQuiz(); // 3-B) if the timer runs out end game function will run
         }
     }, 1000);
 }
 
-
-// display question
+// 2-B) users s presented with the first question, this loops through all questions
 function displayQuestion() {
     console.log("display question function started");
 
@@ -90,6 +87,8 @@ function displayQuestion() {
         answerBtn.textContent = currentQuestion.questionAnswers[i]
         quizChoicesEl.appendChild(answerBtn);
     }
+
+    // 2-C) the user selects one of the 4 possible answers on mouse click
     quizChoicesEl.children[0].addEventListener("click", function () {
         checkAnswer(quizChoicesEl.children[0]);
     });
@@ -104,10 +103,10 @@ function displayQuestion() {
     });
 }
 
-// check answer function
+// 2-D) The users selections is checked to be correct or incorrect
 function checkAnswer(userAnswer) {
     if (userAnswer.textContent != quizQuestions[currentQuestionIndex].correctAnswer) {
-        timeCount -= 10;
+        timeCount -= 10; // 2-E) a wrong answer deducts 10 seconds off the timer
         feedbackEl.textContent = "Incorrect";
         console.log("Answer was incorrect, 10 seconds were deducted from timer");
     }
@@ -116,21 +115,22 @@ function checkAnswer(userAnswer) {
         console.log("Answer was correct")
     }
 
+    // feedbackEl gives the user a 1 second pop-up indicating if last selection was correct or incorrect
     feedbackEl.setAttribute("class", "feedback");
     setInterval(function () {
         feedbackEl.setAttribute("class", "feedback hide");
     }, 1000);
 
 
-    currentQuestionIndex++; // after previous answer checked, go to next question
+    currentQuestionIndex++; // 2-F) moves reference for quiz to the next question
 
     console.log("checking if there is another question")
     if (currentQuestionIndex >= (quizQuestions.length)) {
         console.log("there are no more questions in quiz array")
-        endQuiz(); // ends quiz when quiz goes through full question array
+        endQuiz(); // 3-A) ends quiz when quiz goes through full question array of questions
 
     } else
-        displayQuestion();
+        displayQuestion(); // 2-F) if available user is presented with the next question
 }
 
 
@@ -146,7 +146,7 @@ function endQuiz() {
 
 }
 
-function saveHighscore() {
+function saveHighscore() { // 4-B) this function captures users initials and highscore
     var initials = initialsEl.value.toUpperCase();
     if (initials === "") {
         alert("Can not be blank'");
@@ -175,4 +175,5 @@ function saveHighscore() {
 
 submitBtn.onclick = saveHighscore;
 
+// 1-A) User starts the quiz by clikcing a start button
 startBtn.onclick = startQuiz;

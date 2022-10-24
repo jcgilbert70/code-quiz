@@ -1,4 +1,4 @@
-function printHighscores() {
+function printHighscores() { // 4-C) users initials and scores created in a list, sorted highest to lowest
    
     console.log("printHighscores function started");
     var highScores = JSON.parse(localStorage.getItem("highscores"));
@@ -19,7 +19,7 @@ function printHighscores() {
     }
 }
 
-function clearHighscores() {   
+function clearHighscores() {   // 4-D) high score list can be cleared
     localStorage.removeItem("highscores");
     location.reload();
 }
