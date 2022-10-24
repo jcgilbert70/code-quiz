@@ -1,4 +1,5 @@
 function printHighscores() {
+   
     console.log("printHighscores function started");
     var highScores = JSON.parse(localStorage.getItem("highscores"));
     if (highScores != null) {
@@ -18,8 +19,7 @@ function printHighscores() {
     }
 }
 
-function clearHighscores() {
-    console.log("clear high scores button pushed")
+function clearHighscores() {   
     localStorage.removeItem("highscores");
     location.reload();
 }
@@ -29,4 +29,4 @@ clearButton.addEventListener("click", function () {
     clearHighscores();
 })
 
-printHighscores
+printHighscores();
