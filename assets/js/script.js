@@ -68,12 +68,13 @@ var quizOverEl = document.querySelector("#quizOver");
 var remainingTimeEl = document.querySelector("#remainingTime");
 var remainingTimeEndEl = document.querySelector("#remainingTimeEnd");
 var resultEl = document.querySelector("#result");
-var startBtnEl = document.querySelector("#startBtn");
+
 
 // variables to referencee buttons in DOM
-var clearButton = document.querySelector("#clearButton");
+var clearHighscoresBtn = document.querySelector("#clearHighscoresBtn");
 var goBackBtn = document.querySelector("#goBackBtn");
 var submitBtn = document.querySelector("#submit");
+var startBtn = document.querySelector("#startBtn");
 var viewHighscoresBtn = document.querySelector("#viewHighscoresBtn");
 
 function init() {
@@ -85,6 +86,11 @@ function init() {
     quizOverEl.setAttribute("class", "hide");
     highscoresEL.setAttribute("class", "hide");
     remainingTimeEl.setAttribute("class", "");
+}
+
+function goBack() {
+    console.log("go back button pressed")
+    init();
 }
 
 function highscoreViewer() {
@@ -204,7 +210,7 @@ function endQuiz() {
     }
     remainingTimeEndEl.textContent = ("Your Final Score Is: ") + timeCount;
     console.log("final score is: " + timeCount)
-    
+
 }
 
 function printHighscores() { // 4-C) users initials and scores created in a list
@@ -216,21 +222,30 @@ function printHighscores() { // 4-C) users initials and scores created in a list
 
 function saveHighscore() { // 4-B) this function captures users initials and highscore
     console.log("saveHighscore function started");
-    printHighscores();
+    initialsEl = "";
+    while (initialsEl < 1 || initialsEl > 3) {
+        alert("Please enter initials length of 1 to 3 characters");
+        var initialsEl = initialsEl.textContent;
+
+
+        printHighscores();
+    }  
 }
 
 function clearHighscores() {   // 4-D) high score list can be cleared
     console.log("clearHighscores function started");
+    initialsEl = "";
 }
 
 init();
 
 viewHighscoresBtn.onclick = highscoreViewer;
 
-goBackBtn.onclick = init;
+goBackBtn.onclick = goBack;
+
+clearHighscoresBtn.onclick = clearHighscores;
 
 submitBtn.onclick = saveHighscore;
 
 // 1-A) User starts the quiz by clikcing a start button
 startBtn.onclick = startQuiz;
-
