@@ -9,10 +9,10 @@
 
 </head>
 
-<body class="wrapper">
+<body class="stock">
     <header>
         <!-- display high score top left, and timer top right -->
-        <section class="scores"><a href="highscores.html" class="choices">View Highscores</a></section>
+        <section class="scores"><a href="highscores.html" class="myBtn">View Highscores</a></section>
         
         <section class="timer">Time: <span id="remainingTime">75</span></section>
     </header>
@@ -24,7 +24,7 @@
         <p>Every wrong answer will deduct 10 seconds from the timer</p>
         <p>The quiz is over if time runs out or all questions are answered</p>
         <br>
-        <button id="startBtn" class="choices">Start Quiz</button>
+        <button id="startBtn" class="myBtn">Start Quiz</button>
     </section>
 
     <!-- container for questions and answers -->
@@ -34,21 +34,21 @@
         <ul id="quizChoices"></ul> <!-- element for question answers to display-->
         </section>
 
-
     <!-- quick response letting user know if choice was correct or wrong -->
-    <section id="feedback" class="hide"></section> 
+    <section id="result" class="hide"></section> 
 
     <!-- dont display until over -->
     <section id="quizOver" class="hide">
         <h4 class="end"> Quiz Over </h4>
         <h5 id="remainingTimeEnd"></h5>
         <h6>Enter initials: <input type="text" id="initials" max = "3"></h6>
-        <button id="submit" class="choices">Submit</button>
+        <button id="submit" class="myBtn">Submit</button>
     </section>
+
+    
 
 </body>
 
-<script src="assets/js/questions.js"></script>
 <script src="assets/js/script.js"></script>
 
 

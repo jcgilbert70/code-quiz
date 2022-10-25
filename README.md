@@ -17,7 +17,6 @@ I have added comments to more easily understand the JavaScript code that I added
 
 <img src="./assets/img/screenshot-intro.png" width="300">
 <img src="./assets/img/screenshot-quiz.png" width="300"> 
-<img src="./assets/img/screenshot-scores.png" width="300">
 
 Application: https://jcgilbert70.github.io/code-quiz/
 

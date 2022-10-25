@@ -18,6 +18,39 @@
     D) high score list can be refreshed, or user can return to main page
 */
 
+var quizQuestions = [
+    {
+        questionNum: "1",
+        questionAsk: "The condition in an if/else statement is enclosed within:",
+        questionAnswers: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+        correctAnswer: "curly brackets"
+    },
+    {
+        questionNum: "2",
+        questionAsk: "Arrays in JavaScript can be used to store:",
+        questionAnswers: ["numbers and strings", "other arrays", "blockchains", "all of the above"],
+        correctAnswer: "numbers and strings"
+    },
+    {
+        questionNum: "3",
+        questionAsk: "Commonly used data types DO NOT include:",
+        questionAnswers: ["strings", "booleans", "alerts", "numbers"],
+        correctAnswer: "alerts"
+    },
+    {
+        questionNum: "4",
+        questionAsk: "String values must be enclosed within ________ when being assigned to variables.",
+        questionAnswers: ["commas", "curly brackets", "quotes", "parenthesis"],
+        correctAnswer: "quotes"
+    },
+    {
+        questionNum: "5",
+        questionAsk: "A very useful tool used during developement and debuggin for printing content to the debugger is:",
+        questionAnswers: ["JavaScript", "terminal/bash", "for loops", "console.log"],
+        correctAnswer: "console.log"
+    }
+]
+
 var timer
 var score = 0;
 var timeCount = 75;
@@ -31,7 +64,7 @@ var quizContainerEl = document.querySelector("#quizContainer");
 var quizNumE1 = document.querySelector("#quizNum");
 var quizHeaderEl = document.querySelector("#quizHeader");
 var quizChoicesEl = document.querySelector("#quizChoices");
-var feedbackEl = document.querySelector("#feedback");
+var resultEl = document.querySelector("#result");
 var quizOverEl = document.querySelector("#quizOver");
 var remainingTimeEnd = document.querySelector("#remainingTimeEnd");
 var initialsEl = document.querySelector("#initials");
@@ -83,7 +116,7 @@ function displayQuestion() {
     for (var i = 0; i < currentQuestion.questionAnswers.length; i++) {
 
         var answerBtn = document.createElement("button");
-        answerBtn.setAttribute("class", "choices");
+        answerBtn.setAttribute("class", "myBtn");
         answerBtn.textContent = currentQuestion.questionAnswers[i]
         quizChoicesEl.appendChild(answerBtn);
     }
@@ -107,18 +140,18 @@ function displayQuestion() {
 function checkAnswer(userAnswer) {
     if (userAnswer.textContent != quizQuestions[currentQuestionIndex].correctAnswer) {
         timeCount -= 10; // 2-E) a wrong answer deducts 10 seconds off the timer
-        feedbackEl.textContent = "Incorrect";
+        resultEl.textContent = "Incorrect";
         console.log("Answer was incorrect, 10 seconds were deducted from timer");
     }
     else {
-        feedbackEl.textContent = "Correct";
+        resultEl.textContent = "Correct";
         console.log("Answer was correct")
     }
 
     // feedbackEl gives the user a 1 second pop-up indicating if last selection was correct or incorrect
-    feedbackEl.setAttribute("class", "feedback");
+    resultEl.setAttribute("class", "result");
     setInterval(function () {
-        feedbackEl.setAttribute("class", "feedback hide");
+        resultEl.setAttribute("class", "result hide");
     }, 1000);
 
 
@@ -142,18 +175,51 @@ function endQuiz() {
     quizOverEl.setAttribute("class", " "); // section where questions were are replaced by "quizOver" 
     remainingTimeEnd.textContent = ("Your Final Score Is: ") + timeCount;
     console.log("final score is: " + timeCount)
+}
 
+function printHighscores() { // 4-C) users initials and scores created in a list
+
+    console.log("printHighscores function started");
+    var highScores = JSON.parse(localStorage.getItem("highscores"));
+    if (highScores != null) {
+        highScores.sort(function (a, b) {
+            return parseInt(b.score) - parseInt(a.score);
+        });
+        for (var i = 0; i < highScores.length; i++) {
+            var scoreLi = document.createElement("li");
+            scoreLi.textContent = highScores[i].initials + " - " + highScores[i].score;
+            document.getElementById("highscores").appendChild(scoreLi);
+        }
+
+    }
+    else {
+        var temp = document.getElementById("highscores");
+        temp.textContent = "NO HIGH SCORES";
+    }
+
+
+    function clearHighscores() {   // 4-D) high score list can be cleared
+        localStorage.removeItem("highscores");
+        location.reload();
+    }
+
+    var clearButton = document.getElementById("clear");
+    clearButton.addEventListener("click", function () {
+        clearHighscores();
+
+    })
 
 }
 
+
 function saveHighscore() { // 4-B) this function captures users initials and highscore
     var initials = initialsEl.value.toUpperCase();
-    if (initials === "") {
-        alert("Can not be blank'");
+    if (initials.length > 3) {
+        alert("Initials must be no more than 3 characters");
         return;
     }
-    else if (initials.length > 3) {
-        alert("Input must be no more than 3 characters");
+    else if (initials === " ") {
+        alert("Can not be blank");
         return;
     }
     else {
@@ -170,8 +236,8 @@ function saveHighscore() { // 4-B) this function captures users initials and hig
         localStorage.setItem("highscores", JSON.stringify(highscores));
         location.href = "highscores.html";
     }
+    printHighscores();
 }
-
 
 submitBtn.onclick = saveHighscore;
 

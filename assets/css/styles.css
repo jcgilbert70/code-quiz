@@ -14,9 +14,9 @@
   }
 
 
-  .wrapper {
+  .stock {
     margin: 100px auto 0 auto;
-    max-width: 600px;
+    max-width: 500px;
   }
   
   .scores {
@@ -53,21 +53,19 @@ p {
   }
 
 
- .choices {
+ .myBtn {
     background-color: #6b5e80;
     border: 0;
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    font-size: 100%;
     margin: 5px;
-    padding: 2px 10px;
-    transition: background-color 0.1s;
+    padding: 5px;
     text-decoration: none;
     font-size: 18px;
   }
 
-.choices:hover {
+.myBtn:hover {
     background-color: #978ea3;
   }
 
@@ -76,17 +74,16 @@ p {
 
   }
 
-  #feedback {
-    font-style: italic;
-    font-size: 120%;
-    margin-top: 20px;
-    padding-top: 10px;
-    color: gray;
-    border-top: 2px solid #ccc;
-
+  #result {
+    border-top: 5px;
+    border-color: red;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    margin-top: 30px;
+    padding-top: 20px;
   }
 
- #quizChoices button.choices {
+ #quizChoices button.myBtn {
     display: block;
   }
 
