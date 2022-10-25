@@ -20,7 +20,7 @@
 
 var timer
 var score = 0;
-var timeCount = quizQuestions.length * 15;
+var timeCount = 75;
 var currentQuestionIndex = 0;
 
 //  variables to reference the DOM
