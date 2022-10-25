@@ -24,18 +24,18 @@ var timeCount = quizQuestions.length * 15;
 var currentQuestionIndex = 0;
 
 //  variables to reference the DOM
-var remainingTimeEl = document.getElementById("remainingTime");
-var quizIntroEl = document.getElementById("quizIntro");
-var startBtnEl = document.getElementById("startBtn");
-var quizContainerEl = document.getElementById("quizContainer");
-var quizNumE1 = document.getElementById("quizNum");
-var quizHeaderEl = document.getElementById("quizHeader");
-var quizChoicesEl = document.getElementById("quizChoices");
-var feedbackEl = document.getElementById("feedback");
-var quizOverEl = document.getElementById("quizOver");
-var remainingTimeEnd = document.getElementById("remainingTimeEnd");
-var initialsEl = document.getElementById("initials");
-var submitBtn = document.getElementById("submit");
+var remainingTimeEl = document.querySelector("#remainingTime");
+var quizIntroEl = document.querySelector("#quizIntro");
+var startBtnEl = document.querySelector("#startBtn");
+var quizContainerEl = document.querySelector("#quizContainer");
+var quizNumE1 = document.querySelector("#quizNum");
+var quizHeaderEl = document.querySelector("#quizHeader");
+var quizChoicesEl = document.querySelector("#quizChoices");
+var feedbackEl = document.querySelector("#feedback");
+var quizOverEl = document.querySelector("#quizOver");
+var remainingTimeEnd = document.querySelector("#remainingTimeEnd");
+var initialsEl = document.querySelector("#initials");
+var submitBtn = document.querySelector("#submit");
 
 
 function startQuiz() { // start quiz function begins
