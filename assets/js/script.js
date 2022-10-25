@@ -100,7 +100,7 @@ function startQuiz() { // start quiz function begins
 
     // hiding the intro screen
     quizIntroEl.setAttribute("class", "hide");
-
+    viewHighscoresBtn.setAttribute("class", "hide");
     // displaying the questions
     quizContainerEl.setAttribute("class", " ");
     console.log("Intro was replaced with quiz questions container");
@@ -194,6 +194,8 @@ function checkAnswer(userAnswer) {
 function endQuiz() {
     console.log("The quiz ended");
     clearInterval(timer)
+    viewHighscoresBtn.setAttribute("class", "");
+    viewHighscoresBtn.setAttribute("class", "myBtn");
     remainingTimeEl.setAttribute("class", "hide");
     quizContainerEl.setAttribute("class", "hide"); // makes section where questions were dissapear
     quizOverEl.setAttribute("class", " "); // section where questions were are replaced by "quizOver" 
@@ -202,6 +204,7 @@ function endQuiz() {
     }
     remainingTimeEndEl.textContent = ("Your Final Score Is: ") + timeCount;
     console.log("final score is: " + timeCount)
+    
 }
 
 function printHighscores() { // 4-C) users initials and scores created in a list
@@ -222,7 +225,7 @@ function clearHighscores() {   // 4-D) high score list can be cleared
 
 init();
 
-viewHighscoresBtn = highscoreViewer;
+viewHighscoresBtn.onclick = highscoreViewer;
 
 goBackBtn.onclick = init;
 
