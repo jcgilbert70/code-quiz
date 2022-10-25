@@ -51,13 +51,15 @@ var quizQuestions = [ // questions array for quiz
     }
 ]
 
-var timer
+var highscoresArray = [];
+var currentQuestionIndex = 0;
 var score = 0;
 var timeCount = 75;
-var currentQuestionIndex = 0;
+var timer
 
 //  variables to reference the DOM
-var highscoresEL = document.querySelector("#highscores");
+var highscoresListEl = document.querySelector("#highscoresList");
+var highscoresTableEl = document.querySelector("#highscoresTable");
 var initialsEl = document.querySelector("#initials");
 var quizIntroEl = document.querySelector("#quizIntro");
 var quizContainerEl = document.querySelector("#quizContainer");
@@ -84,7 +86,7 @@ function init() {
     quizIntroEl.setAttribute("class", "");
     quizContainerEl.setAttribute("class", "hide");
     quizOverEl.setAttribute("class", "hide");
-    highscoresEL.setAttribute("class", "hide");
+    highscoresTableEl.setAttribute("class", "hide");
     remainingTimeEl.setAttribute("class", "");
 }
 
@@ -98,7 +100,7 @@ function highscoreViewer() {
     quizIntroEl.setAttribute("class", "hide");
     quizContainerEl.setAttribute("class", "hide");
     quizOverEl.setAttribute("class", "hide");
-    highscoresEL.setAttribute("class", "");
+    highscoresTableEl.setAttribute("class", "");
 }
 
 function startQuiz() { // start quiz function begins
@@ -216,21 +218,57 @@ function endQuiz() {
 function printHighscores() { // 4-C) users initials and scores created in a list
     console.log("printHighscores function started");
     quizOverEl.setAttribute("class", "hide");
-    highscoresEL.setAttribute("class", "");
+    highscoresTableEl.setAttribute("class", "");
+
+    initialsEl.innerHTML = ""; // clear text initials text entry
+
+
+
+
 
 }
 
 function saveHighscore() { // 4-B) this function captures users initials and highscore
     console.log("saveHighscore function started");
-    initialsEl = "";
-    while (initialsEl < 1 || initialsEl > 3) {
-        alert("Please enter initials length of 1 to 3 characters");
-        var initialsEl = initialsEl.textContent;
+   
+    var userScore = {
+        userInitials: initialsEl.value.trim(),
+        userScore: timeCount
+    }
+    
+    localStorage.setItem("userScore", JSON.stringify(userScore));
+    
+    var storedHighscores = JSON.parse(localStorage.getItem("userScore"));
+
+    if (storedHighscores !== null) {
+        highscoresArray = storedHighscores; // display stored high scores
+    } else if (storedHighscores === null) {
+        highscoresListEl.textContent = "NO HIGH SCORES"; // if no stored high scores display message
+    }
+
+    for (var i = 0; i < highscoresArray.length; i++) {
+        var highscore = highscoresArray[i];
+
+        var li = document.createElement("li");
+        li.textContent = highscore;
+        li.setAttribute("data-index", i);
+
+        highscoresListEl.appendChild[li]
+    }
 
 
-        printHighscores();
-    }  
+
+
+
+
+
+    //while (initialsEl.length < 1 || initialsEl.length > 3) {
+    //alert("Please enter initials length of 1 to 3 characters");
+    // var initialsEl = initialsEl.textContent;
+
+    printHighscores();
 }
+
 
 function clearHighscores() {   // 4-D) high score list can be cleared
     console.log("clearHighscores function started");
