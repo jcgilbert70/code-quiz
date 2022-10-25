@@ -12,8 +12,8 @@
 <body class="stock">
     <header>
         <!-- display high score top left, and timer top right -->
-        <section class="scores"><a href="highscores.html" class="myBtn">View Highscores</a></section>
-        
+        <button id="viewHighscoresBtn" class="viewHighscoresBtn" >View Highscores</button>
+
         <section class="timer">Time: <span id="remainingTime">75</span></section>
     </header>
 
@@ -32,26 +32,26 @@
         <h3 id="quizNum" class="questionNumber"></h3> <!-- element for question number to display-->
         <h4 id="quizHeader"></h4> <!-- element for question to be displayed -->
         <ul id="quizChoices"></ul> <!-- element for question answers to display-->
-        </section>
+    </section>
 
     <!-- quick response letting user know if choice was correct or wrong -->
-    <section id="result" class="hide"></section> 
+    <section id="result" class="hide"></section>
 
     <!-- dont display until over -->
     <section id="quizOver" class="hide">
         <h4 class="end"> Quiz Over </h4>
         <h5 id="remainingTimeEnd"></h5>
-        <h6>Enter initials: <input type="text" id="initials" max = "3"></h6>
+        <h6>Enter initials: <input type="text" id="initials" max="3"></h6>
         <button id="submit" class="myBtn">Submit</button>
     </section>
 
     <section id="highscores" class="hide">
         <h1>Highscores</h1>
         <ol id="highscores"></ol>
-  
-        <button class="myBtn">Go Back</button>
-        <button id="clear" class="myBtn">Clear Highscores</button>
-      </section>
+
+        <button id="goBackBtn" class="myBtn">Go Back</button>
+        <button id="clearButton" class="myBtn">Clear Highscores</button>
+    </section>
 
 </body>
 

@@ -18,7 +18,7 @@
     D) high score list can be refreshed, or user can return to main page
 */
 
-var quizQuestions = [
+var quizQuestions = [ // questions array for quiz
     {
         questionNum: "1",
         questionAsk: "The condition in an if/else statement is enclosed within:",
@@ -57,25 +57,49 @@ var timeCount = 75;
 var currentQuestionIndex = 0;
 
 //  variables to reference the DOM
-var remainingTimeEl = document.querySelector("#remainingTime");
+var highscoresEL = document.querySelector("#highscores");
+var initialsEl = document.querySelector("#initials");
 var quizIntroEl = document.querySelector("#quizIntro");
-var startBtnEl = document.querySelector("#startBtn");
 var quizContainerEl = document.querySelector("#quizContainer");
 var quizNumE1 = document.querySelector("#quizNum");
 var quizHeaderEl = document.querySelector("#quizHeader");
 var quizChoicesEl = document.querySelector("#quizChoices");
-var resultEl = document.querySelector("#result");
 var quizOverEl = document.querySelector("#quizOver");
-var remainingTimeEnd = document.querySelector("#remainingTimeEnd");
-var initialsEl = document.querySelector("#initials");
-var submitBtn = document.querySelector("#submit");
+var remainingTimeEl = document.querySelector("#remainingTime");
+var remainingTimeEndEl = document.querySelector("#remainingTimeEnd");
+var resultEl = document.querySelector("#result");
+var startBtnEl = document.querySelector("#startBtn");
 
+// variables to referencee buttons in DOM
+var clearButton = document.querySelector("#clearButton");
+var goBackBtn = document.querySelector("#goBackBtn");
+var submitBtn = document.querySelector("#submit");
+var viewHighscoresBtn = document.querySelector("#viewHighscoresBtn");
+
+function init() {
+    console.log("initialize function started");
+    timeCount = 75;
+    currentQuestionIndex = 0;
+    quizIntroEl.setAttribute("class", "");
+    quizContainerEl.setAttribute("class", "hide");
+    quizOverEl.setAttribute("class", "hide");
+    highscoresEL.setAttribute("class", "hide");
+    remainingTimeEl.setAttribute("class", "");
+}
+
+function highscoreViewer() {
+    console.log("view highscore button pressed and highscore viewer function started");
+    quizIntroEl.setAttribute("class", "hide");
+    quizContainerEl.setAttribute("class", "hide");
+    quizOverEl.setAttribute("class", "hide");
+    highscoresEL.setAttribute("class", "");
+}
 
 function startQuiz() { // start quiz function begins
     console.log("start quiz function started");
 
     // hiding the intro screen
-    quizIntroEl.setAttribute("class", "start hide");
+    quizIntroEl.setAttribute("class", "hide");
 
     // displaying the questions
     quizContainerEl.setAttribute("class", " ");
@@ -173,22 +197,37 @@ function endQuiz() {
     remainingTimeEl.setAttribute("class", "hide");
     quizContainerEl.setAttribute("class", "hide"); // makes section where questions were dissapear
     quizOverEl.setAttribute("class", " "); // section where questions were are replaced by "quizOver" 
-    remainingTimeEnd.textContent = ("Your Final Score Is: ") + timeCount;
+    if (timeCount < 0) {
+        timeCount = 0
+    }
+    remainingTimeEndEl.textContent = ("Your Final Score Is: ") + timeCount;
     console.log("final score is: " + timeCount)
 }
 
-
 function printHighscores() { // 4-C) users initials and scores created in a list
-}
-console.log("printHighscores function started");
+    console.log("printHighscores function started");
+    quizOverEl.setAttribute("class", "hide");
+    highscoresEL.setAttribute("class", "");
 
-function clearHighscores() {   // 4-D) high score list can be cleared
 }
 
 function saveHighscore() { // 4-B) this function captures users initials and highscore
+    console.log("saveHighscore function started");
+    printHighscores();
 }
+
+function clearHighscores() {   // 4-D) high score list can be cleared
+    console.log("clearHighscores function started");
+}
+
+init();
+
+viewHighscoresBtn = highscoreViewer;
+
+goBackBtn.onclick = init;
 
 submitBtn.onclick = saveHighscore;
 
 // 1-A) User starts the quiz by clikcing a start button
 startBtn.onclick = startQuiz;
+
