@@ -28,8 +28,8 @@ var quizQuestions = [ // questions array for quiz
     {
         questionNum: "2",
         questionAsk: "Arrays in JavaScript can be used to store:",
-        questionAnswers: ["numbers and strings", "other arrays", "blockchains", "all of the above"],
-        correctAnswer: "numbers and strings"
+        questionAnswers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        correctAnswer: "all of the above"
     },
     {
         questionNum: "3",
@@ -211,6 +211,7 @@ function endQuiz() {
         timeCount = 0
     }
     remainingTimeEndEl.textContent = ("Your Final Score Is: ") + timeCount;
+    highscoresListEl.innerHTML = ""; // clear text initials text entry
     console.log("final score is: " + timeCount)
 
 }
@@ -220,25 +221,10 @@ function printHighscores() { // 4-C) users initials and scores created in a list
     quizOverEl.setAttribute("class", "hide");
     highscoresTableEl.setAttribute("class", "");
 
-    initialsEl.innerHTML = ""; // clear text initials text entry
-
-
-
-
-
-}
-
-function saveHighscore() { // 4-B) this function captures users initials and highscore
-    console.log("saveHighscore function started");
-   
-    var userScore = {
-        userInitials: initialsEl.value.trim(),
-        userScore: timeCount
-    }
     
-    localStorage.setItem("userScore", JSON.stringify(userScore));
-    
+
     var storedHighscores = JSON.parse(localStorage.getItem("userScore"));
+    console.log("High Score List: " + storedHighscores)
 
     if (storedHighscores !== null) {
         highscoresArray = storedHighscores; // display stored high scores
@@ -256,15 +242,22 @@ function saveHighscore() { // 4-B) this function captures users initials and hig
         highscoresListEl.appendChild[li]
     }
 
+}
 
+function saveHighscore() { // 4-B) this function captures users initials and highscore
+    console.log("saveHighscore function started");
 
+    var userInitials = initialsEl.value.trim();
 
+    var userScore = {
+        userInitials,
+        timeCount
+    }
+   
+    var newHighscore = localStorage.setItem("userScore", JSON.stringify(userScore));
+    console.log("new high score saved to local storage: " + newHighscore)
 
-
-
-    //while (initialsEl.length < 1 || initialsEl.length > 3) {
-    //alert("Please enter initials length of 1 to 3 characters");
-    // var initialsEl = initialsEl.textContent;
+    highscoresArray.push(newHighscore);
 
     printHighscores();
 }
